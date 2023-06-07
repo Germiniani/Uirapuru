@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TexthighlightController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class TexthighlightController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] GameObject highlight;
+    [SerializeField] GameObject inventario;
+    [SerializeField] GameObject habilidade;
     [SerializeField] Color HightlightColor;
     [SerializeField] Color DefaultColor;
 
@@ -25,13 +27,10 @@ public class TexthighlightController : MonoBehaviour, IPointerEnterHandler, IPoi
         
     }
 
-    private void OnMouseEnter()
+    private void OnEnable()
     {
-    }
-
-    private void OnMouseExit()
-    {
-        
+        text = GetComponent<Text>();
+        text.color = DefaultColor;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -46,4 +45,18 @@ public class TexthighlightController : MonoBehaviour, IPointerEnterHandler, IPoi
         text.color = DefaultColor;
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log(gameObject.name);
+        if (gameObject.name == "inventario")
+        {
+            inventario.SetActive(true);
+            habilidade.SetActive(false);
+        }
+        else if (gameObject.name == "habilidade")
+        {
+            habilidade.SetActive(true);
+            inventario.SetActive(false);
+        }
+    }
 }
